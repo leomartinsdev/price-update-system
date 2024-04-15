@@ -9,14 +9,14 @@ class App {
 
     this.config();
 
-    // this.routes();
+    this.routes();
 
     this.app.get('/', (req, res) => res.json({ ok: true }));
   }
 
-//   private routes(): void {
-//     this.app.use(router);
-//   }
+  private routes(): void {
+    this.app.use(router);
+  }
 
   private config():void {
     const accessControl: express.RequestHandler = (_req, res, next) => {
