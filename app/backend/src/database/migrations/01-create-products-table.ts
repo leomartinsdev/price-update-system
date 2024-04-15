@@ -1,0 +1,30 @@
+import { Model, QueryInterface, DataTypes } from 'sequelize';
+import { IProduct } from './../../interfaces/Products/IProducts';
+
+export default {
+    up(queryInterface: QueryInterface) {
+        return queryInterface.createTable<Model<IProduct>>('products', {
+        code: {
+            type: DataTypes.BIGINT,
+            primaryKey: true,
+            autoIncrement: true,
+        },
+        name: {
+            type: DataTypes.STRING(100),
+            allowNull: false,
+        },
+        cost_price: {
+            type: DataTypes.DECIMAL(9, 2),
+            allowNull: false,
+        },
+        sale_price: {
+            type: DataTypes.DECIMAL(9, 2),
+            allowNull: false,
+        },
+        });
+    },
+    
+    down(queryInterface: QueryInterface) {
+        return  queryInterface.dropTable('products');
+    },
+}
