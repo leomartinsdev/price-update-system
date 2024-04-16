@@ -1,7 +1,7 @@
 export interface IProductDTO {
-    code: number,
+    code: number | string,
     name: string,
-    current_price: number,
-    new_price: number,
-    error?: string
+    current_price: number | string,
+    new_price: number | string,
+    validation: string,
 }
