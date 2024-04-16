@@ -3,9 +3,12 @@ import { IProductModel } from '../interfaces/Products/IProductModel';
 import { IProduct } from '../interfaces/Products/IProduct';
 import { IProductDTO } from '../interfaces/Products/IProductDTO';
 import { IProductFromCSV } from '../interfaces/Products/IProductFromCSV';
+import PackModel from './PackModel';
+import SequelizePacks from '../database/models/SequelizePacks';
 
 export default class ProductModel implements IProductModel {
   private model = SequelizeProducts;
+  private packModel = SequelizePacks
 
   async findAll(): Promise<IProduct[]> {
     const products = await this.model.findAll();
@@ -25,6 +28,7 @@ export default class ProductModel implements IProductModel {
       { where: { code } }
     );
     if (affectedRows == 0) return null;
+
     return this.findByCode(code);
   }
 

@@ -1,5 +1,5 @@
 import { Model, QueryInterface, DataTypes } from 'sequelize';
-import { IPack } from './../../interfaces/Packs/IPacks';
+import { IPack } from '../../interfaces/Packs/IPack';
 
 export default {
     up(queryInterface: QueryInterface) {
