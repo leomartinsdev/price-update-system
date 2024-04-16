@@ -1,11 +1,10 @@
 import { Request, Router, Response } from 'express';
-import csvToJson from '../utils/csvToJson';
+import ProductController from '../controller/ProductController';
+
+const productController = new ProductController();
 
 const router = Router();
 
-router.post('/', async (req: Request, res: Response) => {
-  const info = await csvToJson('../../atualizacao_preco_exemplo.csv')
-  return res.status(200).json(info);
-});
+router.post('/', async (req: Request, res: Response) => productController.processProducts(req, res));
 
 export default router;
