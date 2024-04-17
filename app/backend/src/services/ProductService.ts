@@ -9,6 +9,12 @@ export default class ProductService {
     const validatedProducts = await this.productModel.validateProducts(
       products
     );
-    return { status: 'SUCCESSFUL', data: { validatedProducts } };
+    return { status: 200, data: { validatedProducts } };
+  }
+
+  public async updateProducts(products: IProductFromCSV[]) {
+    const updatedProducts = await this.productModel.updateProducts(products);
+
+    return { status: 200, data: { updatedProducts } };
   }
 }

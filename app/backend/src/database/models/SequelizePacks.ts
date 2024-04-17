@@ -48,13 +48,13 @@ SequelizePacks.init(
 );
 
 SequelizePacks.belongsToMany(SequelizeProducts, {
-  through: 'packs',
+  through: 'packs_products',
   foreignKey: 'pack_id',
   otherKey: 'product_id',
 });
 
 SequelizeProducts.belongsToMany(SequelizePacks, {
-  through: 'packs',
+  through: 'products_packs',
   foreignKey: 'product_id',
   otherKey: 'pack_id',
 });

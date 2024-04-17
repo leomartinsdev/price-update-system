@@ -17,7 +17,7 @@ export default {
         type: DataTypes.DECIMAL(9, 2),
         allowNull: false,
       },
-      sale_price: {
+      sales_price: {
         type: DataTypes.DECIMAL(9, 2),
         allowNull: false,
       },

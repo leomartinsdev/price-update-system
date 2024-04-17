@@ -13,11 +13,19 @@ export default class ProductController {
     this.processedData = []; // Limpa o array de produtos processados.
     const productsJson = await csvToJson('../../atualizacao_preco_exemplo.csv');
 
-    this.processedData.push(productsJson); // Salva os produtos processados do CSV no array.
+    this.processedData = (productsJson); // Salva os produtos processados do CSV no array.
+
     const serviceResponse = await this.productService.processProducts(
       productsJson
     );
 
-    return res.status(200).json(serviceResponse);
+    return res.status(serviceResponse.status).json(serviceResponse.data);
+  }
+
+  public async updateProducts(req: Request, res: Response) {
+    const products = this.processedData; // Recupera os produtos processados do CSV.
+    const serviceResponse = await this.productService.updateProducts(products);
+
+    return res.status(serviceResponse.status).json(serviceResponse.data);
   }
 }

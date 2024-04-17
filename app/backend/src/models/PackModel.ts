@@ -1,12 +1,9 @@
 import SequelizePacks from '../database/models/SequelizePacks';
-import SequelizeProducts from '../database/models/SequelizeProducts';
 import { IPackModel } from '../interfaces/Packs/IPackModel';
 import { IPack } from '../interfaces/Packs/IPack';
-import { IProduct } from '../interfaces/Products/IProduct';
 
 export default class PackModel implements IPackModel {
   private model = SequelizePacks;
-  private productModel = SequelizeProducts;
 
   async findAllPacks(): Promise<IPack[]> {
     const products = await this.model.findAll();
@@ -21,24 +18,15 @@ export default class PackModel implements IPackModel {
   }
 
   async getPackComponents(packId: number): Promise<any | null> {
-    const packComponents = await this.model.findAll({
-      where: {
-        pack_id: packId,
-      },
+    const packs = await this.model.findAll({
+      where: { pack_id: packId },
     });
 
-    return Promise.all(
-      packComponents.map(async (component: any) => {
-        const product = await this.productModel.findByPk(component.product_id);
-        if (product) {
-          return {
-            product_code: product.code,
-            product_name: product.name,
-            quantity: component.qty,
-          };
-        }
-        return null;
-      })
-    );
+    if (packs == null) return null;
+
+    const packComponents = packs.map((pack) => ({ code: pack.product_id, qty: pack.qty }));
+
+    // Retornar os produtos componentes do pack, ou seja os product_code e a quantidade de cada produto no pack.
+    return packComponents;
   }
 }

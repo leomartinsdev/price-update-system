@@ -6,6 +6,7 @@ import {
   CreationOptional,
 } from 'sequelize';
 import db from '.';
+import SequelizePacks from './SequelizePacks';
 
 class SequelizeProducts extends Model<
   InferAttributes<SequelizeProducts>,
@@ -14,7 +15,7 @@ class SequelizeProducts extends Model<
   declare code: CreationOptional<number>;
   declare name: string;
   declare cost_price: number;
-  declare sale_price: number;
+  declare sales_price: number;
 }
 
 SequelizeProducts.init(
@@ -32,7 +33,7 @@ SequelizeProducts.init(
       type: DataTypes.DECIMAL(9, 2),
       allowNull: false,
     },
-    sale_price: {
+    sales_price: {
       type: DataTypes.DECIMAL(9, 2),
       allowNull: false,
     },
@@ -44,5 +45,15 @@ SequelizeProducts.init(
     underscored: true,
   }
 );
+
+// SequelizeProducts.hasMany(SequelizePacks, {
+//   foreignKey: 'pack_id',
+//   as: 'packs',
+// });
+
+// SequelizeProducts.hasMany(SequelizePacks, {
+//   foreignKey: 'product_id',
+//   as: 'includedInPacks',
+// });
 
 export default SequelizeProducts;
