@@ -6,6 +6,7 @@ import { IProduct } from '../interfaces/Products/IProduct';
 import { IProductDTO } from '../interfaces/Products/IProductDTO';
 import { IProductFromCSV } from '../interfaces/Products/IProductFromCSV';
 import PackModel from './PackModel';
+import { IPack } from '../interfaces/Packs/IPack';
 
 export default class ProductModel implements IProductModel {
   private model = SequelizeProducts;
@@ -37,6 +38,23 @@ export default class ProductModel implements IProductModel {
     return costToUpdate;
   }
 
+  async checkIfItsPack(allPacks: IPack[], code: number): Promise<IPack | null> {
+    const isPack = allPacks.find((pack) => pack.pack_id === code);
+    if (!isPack) return null;
+    return isPack;
+  }
+
+  async checkIfBelongsToPack(
+    allPacks: IPack[],
+    code: number
+  ): Promise<number | null> {
+    const idsInPacks = allPacks.map((pack) => pack.product_id);
+    const belongsToPack = idsInPacks.find((id) => id === code);
+
+    if (!belongsToPack) return null;
+    return belongsToPack;
+  }
+
   async updateProducts(
     products: IProductFromCSV[]
   ): Promise<IProduct[] | null> {
@@ -58,23 +76,16 @@ export default class ProductModel implements IProductModel {
 
       updatedProduct ? updatedProducts.push(updatedProduct!) : null;
 
-      const isPack = await allPacks.find(
-        (pack) => pack.pack_id === product.product_code
-      );
+      const isPack = await this.checkIfItsPack(allPacks, product.product_code!);
 
       if (isPack) {
         const costToUpdate = await this.calculateCostToUpdate(isPack.pack_id);
+        await this.model.update(
+          { cost_price: costToUpdate },
+          { where: { code: product.product_code } }
+        );
 
-        try {
-          await this.model.update(
-            { cost_price: costToUpdate },
-            { where: { code: product.product_code } }
-          );
-
-          console.log('updated');
-        } catch (error) {
-          console.error(error);
-        }
+        console.log('updated');
       }
     }
 
