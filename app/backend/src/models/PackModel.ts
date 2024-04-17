@@ -13,7 +13,6 @@ export default class PackModel implements IPackModel {
   async findByPackId(packId: IPack['pack_id']): Promise<IPack[] | null> {
     const pack = await this.model.findAll({ where: { pack_id: packId } });
     if (pack == null) return null;
-
     return pack;
   }
 
@@ -21,12 +20,8 @@ export default class PackModel implements IPackModel {
     const packs = await this.model.findAll({
       where: { pack_id: packId },
     });
-
     if (packs == null) return null;
-
     const packComponents = packs.map((pack) => ({ code: pack.product_id, qty: pack.qty }));
-
-    // Retornar os produtos componentes do pack, ou seja os product_code e a quantidade de cada produto no pack.
     return packComponents;
   }
 }

@@ -24,6 +24,19 @@ export default class ProductModel implements IProductModel {
     return product;
   }
 
+  async calculateCostToUpdate(pack: number) {
+    let costToUpdate = 0;
+    const packComponents = await this.packModel.getPackComponents(pack);
+    for (const component of packComponents) {
+      const componentInPack = await this.findByCode(component.code);
+      costToUpdate += componentInPack
+        ? Number(componentInPack.cost_price) * component.qty
+        : 0;
+    }
+
+    return costToUpdate;
+  }
+
   async updateProducts(
     products: IProductFromCSV[]
   ): Promise<IProduct[] | null> {
@@ -50,18 +63,7 @@ export default class ProductModel implements IProductModel {
       );
 
       if (isPack) {
-        let costToUpdate = 0;
-        const packComponents = await this.packModel.getPackComponents(
-          isPack.pack_id
-        );
-        for (const component of packComponents) {
-          const componentInPack = await this.findByCode(component.code);
-          costToUpdate += componentInPack
-            ? Number(componentInPack.cost_price) * component.qty
-            : 0;
-        }
-
-        console.log('COST TO UPDATE-----: ', costToUpdate);
+        const costToUpdate = await this.calculateCostToUpdate(isPack.pack_id);
 
         try {
           await this.model.update(
