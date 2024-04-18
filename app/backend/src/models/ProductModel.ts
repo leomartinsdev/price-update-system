@@ -1,5 +1,4 @@
 import SequelizeProducts from '../database/models/SequelizeProducts';
-import SequelizePacks from '../database/models/SequelizePacks';
 import { IProductModel } from '../interfaces/Products/IProductModel';
 import { IPackModel } from '../interfaces/Packs/IPackModel';
 import { IProduct } from '../interfaces/Products/IProduct';
