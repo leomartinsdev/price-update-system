@@ -48,8 +48,6 @@ export default class ProductModel implements IProductModel {
     allPacks: IPack[],
     code: number
   ): Promise<number | null> {
-    console.log('------- ENTROU NO CHECK IF BELONGS TO PACKS ----------');
-
     let belongsToThisPack = allPacks.find((pack) => {
       if (pack.product_id === code) {
         return pack.pack_id;
@@ -57,10 +55,6 @@ export default class ProductModel implements IProductModel {
     });
 
     if (!belongsToThisPack) return null;
-    console.log(
-      '------- BELONGSTOPACK: ---------- ',
-      belongsToThisPack.pack_id
-    );
 
     return belongsToThisPack.pack_id;
   }
@@ -108,7 +102,6 @@ export default class ProductModel implements IProductModel {
     products: IProductFromCSV[],
     packComponents: { code: number; qty: number }[]
   ): Promise<number> {
-    console.log('------- ENTROU NO EXPECTED NEW PACK PRICE ----------');
     const allProducts = await this.findAll();
     const allProductsInThePack = [];
     let expectedFinalPrice = 0;
@@ -119,7 +112,6 @@ export default class ProductModel implements IProductModel {
         allProductsInThePack.push(product);
       }
     }
-    console.log('------- all prods IN PACK ----------: ', allProductsInThePack);
 
     const packComponentsToBeUpdated = products.filter((product) =>
       packComponents.some((e) => e.code === product.product_code)
@@ -141,23 +133,16 @@ export default class ProductModel implements IProductModel {
         expectedFinalPrice += productInPack.sales_price * component.qty;
       }
     });
-    
+
     return expectedFinalPrice;
   }
 
   async validateProducts(products: IProductFromCSV[]): Promise<IProductDTO[]> {
     const validatedProducts: IProductDTO[] = [];
     const allPacks = await this.packModel.findAllPacks();
-
-    console.log('------- ENTROU NO VALIDATE PRODUCTS ----------');
-
     // const allProducts = await this.findAll();   ->> IMPLEMENTAR ISSO.
 
     for (const product of products) {
-      console.log(
-        '------- ENTROU NO FOR DO VALIDATE PRODUCTS: PRODUTO: ----------: ',
-        product.product_code
-      );
       const validationResult: { isValid: boolean; errors?: string[] } = {
         isValid: true,
         errors: [],
@@ -173,7 +158,6 @@ export default class ProductModel implements IProductModel {
         validationResult.isValid = false;
         validationResult.errors?.push('Novo preço não informado.');
       } else {
-        console.log('------- ENTROU NO ELSE DE QUE TEM OS CAMPOS ----------');
         productExists = await this.findByCode(product.product_code);
         if (!productExists) {
           validationResult.isValid = false;
@@ -220,55 +204,26 @@ export default class ProductModel implements IProductModel {
         );
 
         if (isPack) {
-          console.log('------- ENTROU NO CASO DE SER PACK ----------');
           const packComponents = await this.packModel.getPackComponents(
             product.product_code!
           ); // é um array com prodId e qty.
           let componentsInProducts: IProductFromCSV[] = [];
 
-          console.log(
-            '------- PACK COMPONENTS DO CASO DE SER PACK ----------: ',
-            packComponents
-          ); // isso está preenchido
-          // Verificar se algum dos prodIds estão em products.
           for (const component of packComponents) {
-            console.log(
-              '------- COMPONENT OLHAR AQUI 1 ----------: ',
-              component
-            );
-            console.log(
-              '------- COMPONENT OLHAR AQUI 2 ----------: ',
-              products
-            );
             const foundComponent = products.find(
               (e) => e.product_code === component.code
             );
             if (foundComponent) {
               componentsInProducts.push(foundComponent);
             }
-            console.log(
-              '------- COMPONENT OLHAR AQUI 3 ----------: ',
-              componentsInProducts
-            );
           }
 
-          console.log(
-            '------- COMPONENTS IN PRODUCTS ----------: ',
-            componentsInProducts
-          ); // isso está chegando vazio
-
           if (componentsInProducts.length === 0) {
-            console.log(
-              '------- ENTROU NO CASO DE SER PACK E NAO ATUALIZAR UM DOS COMPS ----------'
-            );
             validationResult.isValid = false;
             validationResult.errors?.push(
               'É proibido atualizar uma pack sem atualizar pelo menos um de seus componentes.'
             );
           } else {
-            console.log(
-              '------- ENTROU NO CASO DE SER PACK E O PREÇO ESPERADO NAO BATER ----------'
-            );
             const expectedNewPackPrice = await this.expectedNewPackPrice(
               products,
               packComponents
@@ -282,13 +237,8 @@ export default class ProductModel implements IProductModel {
             }
           }
         } else if (productPackId) {
-          console.log('------- ENTROU NO CASO DE ESTAR EM UMA PACK ----------');
           const packExistsInProducts = products.filter(
             (e) => e.product_code === productPackId
-          ); // Verifica se a pack também está no arquivo de atualização.
-          console.log(
-            '------- PackExistsInProducts ----------: ',
-            packExistsInProducts
           );
 
           if (packExistsInProducts.length === 0) {
@@ -306,9 +256,6 @@ export default class ProductModel implements IProductModel {
             );
 
             if (expectedNewPackPrice != packExistsInProducts[0].new_price) {
-              console.log(
-                '------- ENTROU NO CASO DE NAO SER PACK E O PREÇO ESTAR ERRADO ----------: '
-              );
               validationResult.isValid = false;
               validationResult.errors?.push(
                 'O preço da pack não corresponde ao esperado dado o novo preço de seus componentes.'
@@ -317,9 +264,6 @@ export default class ProductModel implements IProductModel {
           }
         }
       }
-
-      // ----------------------------
-      // Primeiro, vamos verificar se é uma pack.
 
       const productDTO: IProductDTO = {
         code: product.product_code ?? '',
