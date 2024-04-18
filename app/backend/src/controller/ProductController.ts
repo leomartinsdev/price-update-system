@@ -14,7 +14,7 @@ export default class ProductController {
     const productsJson = await csvToJson('../../atualizacao_preco_exemplo.csv');
 
     this.processedData = (productsJson); // Salva os produtos processados do CSV no array.
-
+    // passar direto o processedData;
     const serviceResponse = await this.productService.processProducts(
       productsJson
     );

@@ -16,12 +16,17 @@ export default class PackModel implements IPackModel {
     return pack;
   }
 
-  async getPackComponents(packId: number): Promise<any | null> {
+  async getPackComponents(packId: number): Promise<{ code: number, qty: number }[] | null> {
+    console.log('-------- ENTROU EM GET COMPONONTS--------')
     const packs = await this.model.findAll({
       where: { pack_id: packId },
     });
+    console.log('-------- ENTROU EM GET COMPONONTS - PACKS:--------: ', packs) // ok  está achando ambas as packs
+
     if (packs == null) return null;
     const packComponents = packs.map((pack) => ({ code: pack.product_id, qty: pack.qty }));
+
+    console.log('-------- PACK COMPONENTS INSIDE GETPACKCOMP--------: ', packComponents)
     return packComponents;
   }
 }
