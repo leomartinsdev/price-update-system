@@ -8,10 +8,10 @@ export default class ProductController {
 
   public processedData: IProductFromCSV[] = []; // array para salvar os arquivos processados caso seja necessário reutiliza-los.
 
-  public async processProducts(req: Request, res: Response) {
+  public async processProducts(req: Request, res: Response, filePath: string) {
     // const products = req.body;
     this.processedData = []; // Limpa o array de produtos processados.
-    const productsJson = await csvToJson('../../atualizacao_preco_exemplo.csv');
+    const productsJson = await csvToJson(filePath);
 
     this.processedData = (productsJson); // Salva os produtos processados do CSV no array.
     // passar direto o processedData;

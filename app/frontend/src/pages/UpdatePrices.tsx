@@ -1,15 +1,12 @@
-import React, { useState, useEffect, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
+import FileUpload from '../components/FileUpload';
 
 const UpdatePrices = (): ReactElement => {
-    return (
-        <>
-            <h1>
-                <p>
-                    FUNCIONOU
-                </p>
-            </h1>
-        </>
-    );
-}
+  return (
+    <>
+      <FileUpload />
+    </>
+  );
+};
 
 export default UpdatePrices;
