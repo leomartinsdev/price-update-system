@@ -1,5 +1,6 @@
 node_modules.tar.gz
 /build
 /node_modules
+/uploads
 .env
 *.http
