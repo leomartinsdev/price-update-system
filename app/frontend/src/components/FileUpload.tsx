@@ -52,7 +52,9 @@ const FileUpload = (): ReactElement => {
     if (update.ok) {
       console.log('Products updated successfully');
       setProducts([]);
-      fileInput.current.value = '';
+      if (fileInput.current) {
+        fileInput.current.value = '';
+      }
       setIsDisabled(true);
     } else {
       console.log('Products update failed');
