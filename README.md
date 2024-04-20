@@ -15,8 +15,6 @@ Ao final da validação, o sistema exibe as seguintes informações dos produtos
 Caso uma ou mais regras de validação tenham sido quebradas, o sistema também alerta o usuário ao lado de cada produto qual regra foi quebrada.
 <br><br>
 
-
-
 ## Feito com 👨‍💻:
 - Frontend:
 - - Typescript
@@ -29,7 +27,6 @@ Caso uma ou mais regras de validação tenham sido quebradas, o sistema também 
 - Banco de Dados:
 - - MySQL 8
 
-<br>
 ## Como rodar o projeto:
 1)  Clone o repositório;
 2)  Entre no diretório do projeto;
@@ -46,17 +43,14 @@ Esse projeto utiliza Docker. Portanto, caso não tenha em sua máquina, é poss�
 - 3001 - para o backend
 - 5173 - para o vite
 
-<br>
 ## Variáveis de ambiente:
 - Para conveniência, as variáveis de ambiente necessárias para o projeto já estão rodando nos containeres Docker do projeto. Porém, é importante mencionar que em um software em produção (sendo usado em um projeto real) a boa prática é colocar as variáveis de ambiente em um arquivo `.env` e, no arquivo `docker-compose` instruir o Docker a ler esse arquivo. Além disso, é necessário colocar o arquivo `.env` no `.gitignore` para que ele não fique disponível fora do seu diretório local.
 
-<br>
 ## Como conectar ao banco no Azure Data Studio, MySQL Workbench, ou outro Database Manager:
 - Server: localhost
 - user: root
 - password: 123456
 
-<br>
 ## Documentação 📑
 
 ### Endpoint /products (http://localhost:3001/products)
