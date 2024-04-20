@@ -265,10 +265,10 @@ export default class ProductModel implements IProductModel {
       }
 
       const productDTO: IProductDTO = {
-        code: product.product_code ?? '',
-        name: productExists ? productExists.name : '',
-        current_price: productExists ? Number(productExists.sales_price) : '',
-        new_price: product.new_price ?? '',
+        code: product.product_code ?? '-',
+        name: productExists ? productExists.name : '-',
+        current_price: productExists ? Number(productExists.sales_price) : '-',
+        new_price: product.new_price ?? '-',
         validation: validationResult.isValid
           ? 'OK'
           : validationResult.errors?.join(' ') ?? '',

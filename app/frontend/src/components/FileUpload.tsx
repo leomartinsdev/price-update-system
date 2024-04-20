@@ -117,7 +117,9 @@ const FileUpload = (): ReactElement => {
                   <th>Nome</th>
                   <th>Preço Atual</th>
                   <th>Novo Preço</th>
-                  <th>Validação</th>
+                  {
+                    product.validation === 'OK' ? <th style={{color: 'green'}}>Validação</th> : <th style={{color: 'red'}}>Validação</th>
+                  }
                 </tr>
                 </thead>
                 <tbody>
