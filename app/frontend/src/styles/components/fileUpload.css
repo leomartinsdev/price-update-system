@@ -1,9 +1,19 @@
+body {
+  font-family: 'Lato', sans-serif;
+  line-height: 1.6;
+  background-color: white;
+}
+
 .headerDiv {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
   margin-bottom: 10px;
-  border: 1px solid red;
+  background-color: rgb(30, 32, 68);
+  width: 100%;
+  padding: 30px;
+  color: white;
 }
 
 .productsDiv {
@@ -12,13 +22,137 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-  border: 1px solid blue;
+  padding: 10px;
 }
 
 .productCard {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  border: 1px solid green;
+  height: 120px;
+  margin: 10px;
+  padding: 10px;
+  backdrop-filter: blur(20px);
+  background: rgb(8, 200, 142);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  box-shadow: 0 8px 15px 0 rgba(0, 0, 0, 0.37);
+}
+
+.productCard:hover {
+  box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+td,
+th {
+  font-size: 1.25em;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+}
+
+.formLabel {
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 1.25em;
+}
+
+.formInput {
+  margin-right: 50px;
+  padding: 5px;
+  background-color: rgb(30, 32, 64);
+  border: solid 1px rgb(8, 200, 142);
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1.25em;
+}
+
+.validateBtn {
+  margin-right: 30px;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 1.25em;
+  color: white;
+  background-color: rgb(8, 200, 142);
+  border: 1px solid rgb(8, 200, 142);
+  border-radius: 6px;
+  width: 150px;
+  height: 50px;
+}
+
+.updateBtn {
+  padding: 5px;
+  font-weight: bold;
+  font-size: 1.25em;
+  color: white;
+  background-color: rgb(8, 200, 142);
+  border: 1px solid rgb(8, 200, 142);
+  border-radius: 6px;
+  width: 150px;
+  height: 50px;
+}
+
+@media (max-width: 600px) {
+  .productsDiv {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .productCard {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .productCard table {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .productCard th, .productCard td {
+    font-size: 1.1em;
+    min-width: 150px;
+  }
+
+  .productCard td {
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+
+  .headerDiv {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .formInput, .validateBtn, .updateBtn {
+    width: 100%; /* make input and buttons take up the full width */
+    margin-bottom: 10px; /* add some space between elements */
+  }
+
+  .formLabel {
+    font-size: 1.3em; /* make label text a bit smaller */
+  }
+}
+
+/* Styles for screens between 600px and 900px */
+@media (min-width: 600px) and (max-width: 900px) {
+  .formInput,
+  .validateBtn,
+  .updateBtn {
+    width: 75%; /* make input and buttons take up 75% of the width */
+  }
+
+  td,
+  th {
+    font-size: 1.1em; /* make table text a bit smaller */
+  }
+
+  .formLabel {
+    font-size: 1.1em; /* make label text a bit smaller */
+  }
 }

@@ -67,21 +67,39 @@ const FileUpload = (): ReactElement => {
     <>
       <div className="headerDiv">
         <form onSubmit={handleValidateSubmit}>
-          <label htmlFor="file">Carregue o arquivo CSV:</label>
-          <input type="file" id="file" name="file" ref={fileInput} />
-          <button type="submit" className="validateBtn">
+          <label className="formLabel" htmlFor="file">Carregue o arquivo de precificação:</label>
+          <input className="formInput" type="file" id="file" name="file" ref={fileInput} />
+          <button className="validateBtn" type="submit">
             Validar
           </button>
         </form>
 
-        <button
-          type="button"
-          className="updateBtn"
-          disabled={isDisabled}
-          onClick={handleUpdateSubmit}
-        >
-          Atualizar
-        </button>
+        {
+          isDisabled ? (
+            <button
+            type="button"
+            className="updateBtn"
+            disabled={isDisabled}
+            onClick={handleUpdateSubmit}
+            style={{
+              backgroundColor: 'grey',
+              cursor: 'not-allowed',
+            }}
+          >
+            Atualizar
+          </button>
+          ) : (
+            <button
+            type="button"
+            className="updateBtn"
+            disabled={!isDisabled}
+            onClick={handleUpdateSubmit}
+          >
+            Atualizar
+          </button>
+          )
+        }
+
       </div>
 
       <div className="productsDiv">
@@ -96,11 +114,13 @@ const FileUpload = (): ReactElement => {
                   <th>Novo Preço</th>
                   <th>Validação</th>
                 </tr>
-                <p>Código: {product.code}</p>
-                <p>Nome: {product.name}</p>
-                <p>Preço Atual: {product.current_price}</p>
-                <p>Novo Preço: {product.new_price}</p>
-                <p>Validação: {product.validation}</p>
+                <tr>
+                <td>{product.code}</td>
+                <td>{product.name}</td>
+                <td>R$ {product.current_price}</td>
+                <td>R$ {product.new_price}</td>
+                <td>{product.validation}</td>
+                </tr>
               </table>
             </div>
           ))}
