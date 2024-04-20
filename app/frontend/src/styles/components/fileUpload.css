@@ -130,12 +130,12 @@ th {
   }
 
   .formInput, .validateBtn, .updateBtn {
-    width: 100%; /* make input and buttons take up the full width */
-    margin-bottom: 10px; /* add some space between elements */
+    width: 100%;
+    margin-bottom: 10px;
   }
 
   .formLabel {
-    font-size: 1.3em; /* make label text a bit smaller */
+    font-size: 1.3em;
   }
 }
 
@@ -144,15 +144,15 @@ th {
   .formInput,
   .validateBtn,
   .updateBtn {
-    width: 75%; /* make input and buttons take up 75% of the width */
+    width: 75%;
   }
 
   td,
   th {
-    font-size: 1.1em; /* make table text a bit smaller */
+    font-size: 1.1em;
   }
 
   .formLabel {
-    font-size: 1.1em; /* make label text a bit smaller */
+    font-size: 1.1em;
   }
 }
