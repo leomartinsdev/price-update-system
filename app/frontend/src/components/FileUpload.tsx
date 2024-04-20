@@ -53,6 +53,7 @@ const FileUpload = (): ReactElement => {
     if (update.ok) {
       console.log('Products updated successfully');
       setProducts([]);
+      console.log('products', products);
       if (fileInput.current) {
         fileInput.current.value = '';
       }
@@ -67,20 +68,26 @@ const FileUpload = (): ReactElement => {
     <>
       <div className="headerDiv">
         <form onSubmit={handleValidateSubmit}>
-          <label className="formLabel" htmlFor="file">Carregue o arquivo de precificação:</label>
-          <input className="formInput" type="file" id="file" name="file" ref={fileInput} />
+          <label className="formLabel" htmlFor="file">
+            Carregue o arquivo de precificação:
+          </label>
+          <input
+            className="formInput"
+            type="file"
+            id="file"
+            name="file"
+            ref={fileInput}
+          />
           <button className="validateBtn" type="submit">
             Validar
           </button>
         </form>
 
-        {
-          isDisabled ? (
-            <button
+        {isDisabled ? (
+          <button
             type="button"
             className="updateBtn"
             disabled={isDisabled}
-            onClick={handleUpdateSubmit}
             style={{
               backgroundColor: 'grey',
               cursor: 'not-allowed',
@@ -88,18 +95,15 @@ const FileUpload = (): ReactElement => {
           >
             Atualizar
           </button>
-          ) : (
-            <button
+        ) : (
+          <button
             type="button"
             className="updateBtn"
-            disabled={!isDisabled}
             onClick={handleUpdateSubmit}
           >
             Atualizar
           </button>
-          )
-        }
-
+        )}
       </div>
 
       <div className="productsDiv">
@@ -107,6 +111,7 @@ const FileUpload = (): ReactElement => {
           products.map((product) => (
             <div className="productCard" key={product.code}>
               <table>
+                <thead>
                 <tr>
                   <th>Código</th>
                   <th>Nome</th>
@@ -114,13 +119,16 @@ const FileUpload = (): ReactElement => {
                   <th>Novo Preço</th>
                   <th>Validação</th>
                 </tr>
+                </thead>
+                <tbody>
                 <tr>
-                <td>{product.code}</td>
-                <td>{product.name}</td>
-                <td>R$ {product.current_price}</td>
-                <td>R$ {product.new_price}</td>
-                <td>{product.validation}</td>
+                  <td>{product.code}</td>
+                  <td>{product.name}</td>
+                  <td>R$ {product.current_price}</td>
+                  <td>R$ {product.new_price}</td>
+                  <td>{product.validation}</td>
                 </tr>
+                </tbody>
               </table>
             </div>
           ))}
