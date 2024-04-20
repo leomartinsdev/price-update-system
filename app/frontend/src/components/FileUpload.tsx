@@ -1,4 +1,5 @@
 import React, { ReactElement, useRef, useState } from 'react';
+import '../../src/styles/components/fileUpload.css';
 
 interface IProductDTO {
   code: number | string;
@@ -64,24 +65,46 @@ const FileUpload = (): ReactElement => {
   console.log(isDisabled);
   return (
     <>
-      <form onSubmit={handleValidateSubmit}>
-        <label htmlFor="file">Carregue o arquivo CSV:</label>
-        <input type="file" id="file" name="file" ref={fileInput} />
-        <button type="submit">Validar</button>
-      </form>
+      <div className="headerDiv">
+        <form onSubmit={handleValidateSubmit}>
+          <label htmlFor="file">Carregue o arquivo CSV:</label>
+          <input type="file" id="file" name="file" ref={fileInput} />
+          <button type="submit" className="validateBtn">
+            Validar
+          </button>
+        </form>
 
-      <button type="button" disabled={isDisabled} onClick={handleUpdateSubmit}>Atualizar</button>
+        <button
+          type="button"
+          className="updateBtn"
+          disabled={isDisabled}
+          onClick={handleUpdateSubmit}
+        >
+          Atualizar
+        </button>
+      </div>
 
-      {products &&
-        products.map((product) => (
-          <div key={product.code}>
-            <p>Código: {product.code}</p>
-            <p>Nome: {product.name}</p>
-            <p>Preço Atual: {product.current_price}</p>
-            <p>Novo Preço: {product.new_price}</p>
-            <p>Validação: {product.validation}</p>
-          </div>
-        ))}
+      <div className="productsDiv">
+        {products &&
+          products.map((product) => (
+            <div className="productCard" key={product.code}>
+              <table>
+                <tr>
+                  <th>Código</th>
+                  <th>Nome</th>
+                  <th>Preço Atual</th>
+                  <th>Novo Preço</th>
+                  <th>Validação</th>
+                </tr>
+                <p>Código: {product.code}</p>
+                <p>Nome: {product.name}</p>
+                <p>Preço Atual: {product.current_price}</p>
+                <p>Novo Preço: {product.new_price}</p>
+                <p>Validação: {product.validation}</p>
+              </table>
+            </div>
+          ))}
+      </div>
     </>
   );
 };

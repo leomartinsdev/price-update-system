@@ -1,0 +1,24 @@
+.headerDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid red;
+}
+
+.productsDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid blue;
+}
+
+.productCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  border: 1px solid green;
+}
