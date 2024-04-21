@@ -39,6 +39,7 @@ Esse projeto utiliza Docker. Portanto, caso não tenha em sua máquina, é poss�
 É possível resetar o banco de dados para seu estado original executando o comando `npm run db:reset` dentro do diretório de backend (`app/backend`).
 
 ## Portas: o projeto utiliza 3 portas, portanto é essencial que elas estejam livres no seu computador:
+- 3306 - para o banco de dadaos MySQL
 - 3000 - para o frontend
 - 3001 - para o backend
 - 5173 - para o vite
