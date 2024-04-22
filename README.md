@@ -34,11 +34,17 @@ Caso uma ou mais regras de validação tenham sido quebradas, o sistema também 
 5)  Inicie os containeres: `npm run compose:up`;
 6)  Pronto! Toda a aplicação está configurada em um docker de maneira que, ao rodar o comando acima, o Docker: cria um container para o banco de dados, outro para o backend e outro para o frontend. Além disso, os containers executa uma série de scripts que: inicializam o frontend (http://localhost:3000) e o backend (http://localhost:3001), rodam as migrations e o seeders do banco de dados e deixa tudo pronto para uso.
 
+<br>
+
+- URL para acessar o Frontend: http://localhost:3000
+- URL para acessar o Backend: http://localhost:3001
+  
+<br>
 Observações:
 Esse projeto utiliza Docker. Portanto, caso não tenha em sua máquina, é possível instalar visitando seguindo a documentação do [site oficial do Docker](https://docs.docker.com/engine/install/).<br>
 É possível resetar o banco de dados para seu estado original executando o comando `npm run db:reset` dentro do diretório de backend (`app/backend`).
 
-## Portas: o projeto utiliza 3 portas, portanto é essencial que elas estejam livres no seu computador:
+## Portas: o projeto utiliza 4 portas, portanto é essencial que elas estejam livres no seu computador:
 - 3306 - para o banco de dadaos MySQL
 - 3000 - para o frontend
 - 3001 - para o backend
